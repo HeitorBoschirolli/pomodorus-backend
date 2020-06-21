@@ -1,0 +1,14 @@
+[flake8]
+max-line-length = 80
+
+# ignored rules:
+# W503: Line break occurred before a binary operator. This goes against PEP8.
+# C901: Function is too complex. I just don't care whether the function have
+# too many ifs.
+ignore = W503, C901
+
+# count the number of occurrences of each error/warning code and print a report
+statistics = true
+
+# print the source code generating the error/warning in question
+show-source = true
