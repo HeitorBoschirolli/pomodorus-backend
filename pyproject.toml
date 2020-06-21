@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "pomodorus"
+version = "0.1.0"
+description = "backend for the pomodorus project"
+authors = ["Heitor Boschirolli <heitor.boschirolli>"]
+license = "MIT"
+
+[tool.poetry.scripts]
+pomodorus = "pomodorus.app:main"
+
+[tool.poetry.dependencies]
+python = "^3.5"
+Flask = "^1.1.2"
+Flask-JWT = "^0.3.2"
+Flask-RESTful = "^0.3.8"
+Flask-SQLAlchemy = "^2.4.3"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^3.8.3"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
