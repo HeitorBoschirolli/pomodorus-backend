@@ -9,7 +9,7 @@ license = "MIT"
 pomodorus = "pomodorus.app:main"
 
 [tool.poetry.dependencies]
-python = "^3.5"
+python = "^3.6"
 Flask = "^1.1.2"
 Flask-JWT = "^0.3.2"
 Flask-RESTful = "^0.3.8"
