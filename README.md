@@ -6,6 +6,7 @@ Backend service for the pomodorus app.
 ``` shell
 $ git clone <url>
 $ cd pomodorus-backend
+$ echo "secret-key: '123'" > config.yaml
 $ poetry install
 $ poetry run pomodorus
 ```
