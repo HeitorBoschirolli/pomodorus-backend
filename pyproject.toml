@@ -16,6 +16,7 @@ Flask-RESTful = "^0.3.8"
 Flask-SQLAlchemy = "^2.4.3"
 python-dateutil = "^2.8.1"
 mock = "^4.0.2"
+flask-jwt-extended = "^3.24.1"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.8.3"
