@@ -10,6 +10,7 @@ from pomodorus.db import db
 from pomodorus.resources.interval import Interval
 from pomodorus.resources.intervals import Intervals
 from pomodorus.resources.pomodoro import Pomodoro
+from pomodorus.resources.pomodoruses import Pomodoruses
 
 
 app = Flask(__name__)
@@ -25,6 +26,9 @@ api = Api(app)
 api.add_resource(Interval, '/interval')
 api.add_resource(Intervals, '/intervals')
 api.add_resource(Pomodoro, '/pomodoro')
+api.add_resource(Pomodoruses, '/pomodoros')
+
+
 @app.before_first_request
 def create_tables():
     """
