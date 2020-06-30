@@ -1,3 +1,7 @@
+# configuration file
+config.yaml
+config.yml
+
 # vim directory and everything inside it
 .vim
 
