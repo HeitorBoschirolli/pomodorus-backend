@@ -9,6 +9,7 @@ from flask_restful import Api
 from pomodorus.db import db
 from pomodorus.resources.interval import Interval
 from pomodorus.resources.intervals import Intervals
+from pomodorus.resources.pomodoro import Pomodoro
 
 
 app = Flask(__name__)
@@ -23,6 +24,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 api = Api(app)
 api.add_resource(Interval, '/interval')
 api.add_resource(Intervals, '/intervals')
+api.add_resource(Pomodoro, '/pomodoro')
 @app.before_first_request
 def create_tables():
     """
