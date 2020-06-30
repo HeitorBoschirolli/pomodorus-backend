@@ -15,3 +15,10 @@ class User(db.Model):
     def __init__(self, username, password):
         self.username = username
         self.password = password
+
+    def save(self):
+        """
+        Save object to the database.
+        """
+        db.session.add(self)
+        db.session.commit()
