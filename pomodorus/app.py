@@ -21,6 +21,11 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 # it
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# allow flask extensions to return their own errors to the user. If this is
+# False everytime a flask extension raises an error, 500 will be returned to
+# the user. If this is True the extensions can return custom errors to the user
+app.config['PROPAGATE_EXCEPTIONS'] = True
+
 # register endpoints
 api = Api(app)
 api.add_resource(Interval, '/interval')
