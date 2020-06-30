@@ -41,11 +41,21 @@ def create_tables():
 
 
 def main():
+    """
+    Start the application.
+
+    :returns: nothing
+    :rtype: None
+    """
+    # initialize database
+    db.init_app(app)
+
+    # run app
     app.run(port=5000)
 
 
 # everytime a file is imported, it's contents are executed. This could cause
-# the app to be started more than once. To prevent this, the execution is
-# limited for when this module is executed directly.
+# the app to be started more than once. To prevent this, the app initialization
+# is limited for when this module is executed directly.
 if __name__ == '__main__':
     main()
