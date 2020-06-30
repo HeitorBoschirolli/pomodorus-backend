@@ -1,3 +1,6 @@
+# vim directory and everything inside it
+.vim
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
