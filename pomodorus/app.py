@@ -5,6 +5,8 @@ Starting point of the application.
 
 from flask import Flask
 from flask_restful import Api
+from flask_jwt_extended import JWTManager
+from yaml import load
 
 from pomodorus.db import db
 from pomodorus.resources.interval import Interval
@@ -26,6 +28,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # False everytime a flask extension raises an error, 500 will be returned to
 # the user. If this is True the extensions can return custom errors to the user
 app.config['PROPAGATE_EXCEPTIONS'] = True
+
+with open('./config.yaml') as f:
+    app.secret_key = load(f)['secret-key']
+
+# enable jwt
+jwt = JWTManager(app)
 
 # register endpoints
 api = Api(app)
