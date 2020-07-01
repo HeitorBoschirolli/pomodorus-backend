@@ -14,6 +14,7 @@ from pomodorus.resources.intervals import Intervals
 from pomodorus.resources.pomodoro import Pomodoro
 from pomodorus.resources.pomodoruses import Pomodoruses
 from pomodorus.resources.user import User
+from pomodorus.resources.session import Session
 
 
 app = Flask(__name__)
@@ -42,6 +43,7 @@ api.add_resource(Intervals, '/intervals')
 api.add_resource(Pomodoro, '/pomodoro')
 api.add_resource(Pomodoruses, '/pomodoros')
 api.add_resource(User, '/user')
+api.add_resource(Session, '/session')
 
 
 @app.before_first_request
