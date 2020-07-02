@@ -5,7 +5,6 @@ Starting point of the application.
 
 from flask import Flask
 from flask_restful import Api
-from flask_jwt_extended import JWTManager
 from yaml import load
 
 from pomodorus.db import db
@@ -15,6 +14,7 @@ from pomodorus.resources.pomodoro import Pomodoro
 from pomodorus.resources.pomodoruses import Pomodoruses
 from pomodorus.resources.user import User
 from pomodorus.resources.session import Session
+from pomodorus.authentication import setup_authentication
 
 
 app = Flask(__name__)
@@ -31,10 +31,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 
 with open('./config.yaml') as f:
-    app.secret_key = load(f)['secret-key']
+    config = load(f)
 
-# enable jwt
-jwt = JWTManager(app)
+setup_authentication(app, config)
 
 # register endpoints
 api = Api(app)
