@@ -5,6 +5,7 @@ to a pomodoro or a rest session.
 from flask_restful import Resource
 from flask_restful import reqparse
 from flask_jwt_extended import jwt_required
+from flask_jwt_extended import get_jwt_identity
 
 from pomodorus.models.pomodoro import Pomodoro as PomodoroModel
 from pomodorus.models.interval import Interval as IntervalModel
@@ -44,9 +45,13 @@ class Interval(Resource):
 
         pomodoro = PomodoroModel.find_by_id(pomodoro_id)
 
-        # pomodoro don't exist: fail request
-        if pomodoro is None:
+        # pomodoro don't exist or is not associated to a user: fail request
+        if (pomodoro is None) or (pomodoro.user is None):
             return {'message': 'Invalid pomodoro id'}, 400
+
+        # pomodoro not from the logger user: fail request
+        if pomodoro.user.id != get_jwt_identity():
+            return {'message': 'This pomodoro belongs to another user'}, 401
 
         # get all intervals from the pomodoro whose `start` parameter is the
         # same as the `start` received in the request
