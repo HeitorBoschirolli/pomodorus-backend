@@ -67,7 +67,7 @@ def main():
     db.init_app(app)
 
     # run app
-    app.run(port=5000)
+    app.run(port=5000, debug=config['environment'] == 'dev')
 
 
 # everytime a file is imported, it's contents are executed. This could cause
