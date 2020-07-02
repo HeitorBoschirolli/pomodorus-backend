@@ -5,11 +5,21 @@ from pomodorus.db import db
 
 
 class Pomodoro(db.Model):
+
+    # table information
     __tablename__ = 'pomodoro'
-
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+    # FIXME: this is nor working
+    #
+    # set relationships. This automates the process of quering for entries
+    # related by foreign keys
     intervals = db.relationship('Interval', lazy='dynamic')
+    user = db.relationship('User')
+
+    def __init__(self, user_id):
+        self.user_id = user_id
 
     def json(self):
         return {
