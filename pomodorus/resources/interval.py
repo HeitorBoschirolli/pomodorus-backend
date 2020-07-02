@@ -4,6 +4,7 @@ to a pomodoro or a rest session.
 """
 from flask_restful import Resource
 from flask_restful import reqparse
+from flask_jwt_extended import jwt_required
 
 from pomodorus.models.pomodoro import Pomodoro as PomodoroModel
 from pomodorus.models.interval import Interval as IntervalModel
@@ -32,6 +33,7 @@ class Interval(Resource):
                         required=True)
 
     @classmethod
+    @jwt_required
     def post(cls):
         # parse body parameters
         data = cls.parser.parse_args()
