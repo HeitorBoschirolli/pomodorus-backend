@@ -35,6 +35,10 @@ class Pomodoro(db.Model):
     def find_all(cls):
         return cls.query.all()
 
+    @classmethod
+    def find_by_user_id(cls, user_id):
+        return cls.query.filter_by(user_id=user_id).all()
+
     def save(self):
         db.session.add(self)
         db.session.commit()
