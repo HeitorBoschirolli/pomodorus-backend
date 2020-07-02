@@ -50,6 +50,14 @@ class Interval(db.Model):
         return cls.query.all()
 
     @classmethod
+    def find_by_user_id(cls, user_id):
+        from pomodorus.models.pomodoro import Pomodoro
+        return (cls
+                .query
+                .join(Pomodoro, cls.pomodoro_id == Pomodoro.id)
+                .filter(Pomodoro.user_id == user_id)).all()
+
+    @classmethod
     def find_by_start_in(cls, lower_boundary, upper_boundary):
         """
         Find all entries in the database with `start` in between the given
