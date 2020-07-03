@@ -12,9 +12,23 @@ class JwtBlacklist(db.Model):
     __tablename__ = 'jwt_blacklist'
     id = db.Column(db.Integer, primary_key=True)
     jid = db.Column(db.String(250))
+    expiration_date = db.Column(db.DateTime)
 
-    def __init__(self, jwt_id):
+    def __init__(self, jwt_id, expiration_date):
+        """
+        Initialize an instance.
+
+        :param jwt_id: jwt id, also refered to as jid or jti.
+        :type jwt_id: str
+
+        :param expiration_date: token expiration date
+        :type expiration_date: datetime.datetime
+
+        :returns: nothing
+        :rtype: None
+        """
         self.jid = jwt_id
+        self.expiration_date = expiration_date
 
     def save(self):
         """
