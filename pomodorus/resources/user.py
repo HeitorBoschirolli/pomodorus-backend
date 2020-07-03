@@ -6,14 +6,6 @@ from flask_restful import reqparse
 
 from pomodorus.models.user import User as UserModel
 
-parser = reqparse.RequestParser()
-parser.add_argument('username',
-                    type=str,
-                    required=True)
-parser.add_argument('password',
-                    type=str,
-                    required=True)
-
 
 class User(Resource):
 
@@ -25,6 +17,16 @@ class User(Resource):
         :returns: message and status code
         :rtype: tuple[dict[str, str], int]
         """
+        # parser for request's body
+        parser = reqparse.RequestParser()
+        parser.add_argument('username',
+                            type=str,
+                            required=True)
+        parser.add_argument('password',
+                            type=str,
+                            required=True)
+
+        # get data from request body
         data = parser.parse_args()
         username = data['username']
         password = data['password']
