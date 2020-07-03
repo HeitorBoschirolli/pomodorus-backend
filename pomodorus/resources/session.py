@@ -6,8 +6,12 @@ from flask_restful import reqparse
 from werkzeug.security import safe_str_cmp
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import create_refresh_token
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import get_raw_jwt
+from datetime import datetime
 
 from pomodorus.models.user import User as UserModel
+from pomodorus.models.jwt_blacklist import JwtBlacklist
 
 
 parser = reqparse.RequestParser()
@@ -42,3 +46,12 @@ class Session(Resource):
             'accessToken': access_token,
             'refreshToken': refresh_token,
         }
+
+    @staticmethod
+    @jwt_required
+    def delete():
+        jwt_id = get_raw_jwt()['jti']
+        jwt_exp = datetime.fromtimestamp(get_raw_jwt()['exp'])
+        JwtBlacklist(jwt_id, jwt_exp).save()
+
+        return {'message': 'session deleted'}, 200
