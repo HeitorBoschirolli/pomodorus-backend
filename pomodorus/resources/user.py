@@ -22,8 +22,8 @@ class User(Resource):
         """
         Create a new user
 
-        :returns: nothing
-        :rtype: None
+        :returns: message and status code
+        :rtype: tuple[dict[str, str], int]
         """
         data = parser.parse_args()
         username = data['username']
