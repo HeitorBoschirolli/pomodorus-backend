@@ -8,6 +8,8 @@ from flask_jwt_extended import create_access_token
 from flask_jwt_extended import create_refresh_token
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import get_raw_jwt
+from flask_jwt_extended import jwt_refresh_token_required
+from flask_jwt_extended import get_jwt_identity
 from datetime import datetime
 
 from pomodorus.models.user import User as UserModel
@@ -55,3 +57,10 @@ class Session(Resource):
         JwtBlacklist(jwt_id, jwt_exp).save()
 
         return {'message': 'session deleted'}, 200
+
+    @staticmethod
+    @jwt_refresh_token_required
+    def put():
+        user_id = get_jwt_identity()
+        new_token = create_access_token(identity=user_id, fresh=False)
+        return {'accessToken': new_token}, 200
