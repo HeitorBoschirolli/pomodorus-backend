@@ -10,6 +10,8 @@ from flask_jwt_extended import get_raw_jwt
 from pomodorus.models.user import User as UserModel
 from pomodorus.errors.usernotfounderror import UserNotFoundError
 from pomodorus.models.jwt_blacklist import JwtBlacklist
+from pomodorus.errors.usernametoolongerror import UsernameTooLongError
+from pomodorus.errors.passwordtoolongerror import PasswordTooLongError
 
 
 class User(Resource):
@@ -39,7 +41,19 @@ class User(Resource):
         if UserModel.find_by_username(username) is not None:
             return {'message': 'user already exists'}, 400
 
-        user = UserModel(username, password)
+        try:
+            user = UserModel(username, password)
+        except UsernameTooLongError:
+            return {
+                'message': 'the username is too long',
+                'error': 'USERNAME_TOO_LONG',
+            }, 400
+        except PasswordTooLongError:
+            return {
+                'message': 'the password is too long',
+                'error': 'PASSWORD_TOO_LONG'
+            }, 400
+
         user.save()
 
         return {'message': 'user created'}, 201
