@@ -2,6 +2,7 @@
 user model. Handles interactions with the 'user' table
 """
 from pomodorus.db import db
+from pomodorus.errors.usernotfounderror import UserNotFoundError
 
 
 class User(db.Model):
@@ -30,3 +31,25 @@ class User(db.Model):
     @classmethod
     def find_by_username(cls, username):
         return cls.query.filter_by(username=username).first()
+
+    @classmethod
+    def update_password_by_id(cls, id_, new_password):
+        """
+        Update a user's password given it's id.
+
+        :param id_: user's id
+        :type id_: int
+
+        :param new_password: the new password
+        :type new_password: str
+
+        :returns: nothing
+        :rtype: None
+        """
+        user = cls.query.filter_by(id=id_).first()
+
+        if user is None:
+            raise UserNotFoundError
+
+        user.password = new_password
+        db.session.commit()
