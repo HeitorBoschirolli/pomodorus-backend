@@ -5,13 +5,17 @@ from pomodorus.db import db
 from pomodorus.errors.usernotfounderror import UserNotFoundError
 
 
+USERNAME_MAX_LENGTH = 20
+PASSWORD_MAX_LENGTH = 20
+
+
 class User(db.Model):
 
     # table properties
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20))
-    password = db.Column(db.String(20))
+    username = db.Column(db.String(USERNAME_MAX_LENGTH))
+    password = db.Column(db.String(PASSWORD_MAX_LENGTH))
 
     def __init__(self, username, password):
         self.username = username
