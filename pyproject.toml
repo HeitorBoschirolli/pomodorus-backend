@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pomodorus"
-version = "0.6.0"
+version = "0.7.0"
 description = "backend for the pomodorus project"
 authors = ["Heitor Boschirolli <heitor.boschirolli>"]
 license = "MIT"
