@@ -47,7 +47,7 @@ class Session(Resource):
         return {
             'accessToken': access_token,
             'refreshToken': refresh_token,
-        }
+        }, 201
 
     @staticmethod
     @jwt_required
