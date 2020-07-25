@@ -39,7 +39,10 @@ class User(Resource):
         password = data['password']
 
         if UserModel.find_by_username(username) is not None:
-            return {'message': 'user already exists'}, 400
+            return {
+                'message': 'user already exists',
+                'error': 'USERNAME_ALREADY_EXISTS'
+            }, 400
 
         try:
             user = UserModel(username, password)
