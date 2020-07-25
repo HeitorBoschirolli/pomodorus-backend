@@ -36,6 +36,15 @@ class Interval(Resource):
     @classmethod
     @jwt_required
     def post(cls):
+        """
+        Create a time interval. This requires a valid access token (fresh or
+        not), a start time for the interval, whether the interval is from a
+        pomodoro or a rest session and a pomodoro id. The end time of the
+        interval can also be provided but it's not mandatory.
+
+        :returns: dictionary response and status code
+        :rtype: Tuple[Dict[str, str], int]
+        """
         # parse body parameters
         data = cls.parser.parse_args()
         start = data['start']

@@ -14,6 +14,13 @@ class Pomodoruses(Resource):
     @staticmethod
     @jwt_required
     def get():
+        """
+        Get all pomodoros (rest sessions are also considered pomodoros) from
+        a user. A valid access token (fresh or not) is required.
+
+        :returns: dictionary response and status code
+        :rtype: Tuple[Dict[str, List[Dict[str, any]], int]
+        """
         user_id = get_jwt_identity()
         return {
             'pomodoros': [

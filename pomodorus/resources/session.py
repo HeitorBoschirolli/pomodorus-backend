@@ -29,6 +29,15 @@ class Session(Resource):
 
     @staticmethod
     def post():
+        """
+        Create a section for an user. This is equivalent to a login. If the
+        login is successful the access and the refresh tokens are returned.
+        If the login is not successful, an error message and an error code
+        are returned.
+
+        :returns: dictionary response and status code
+        :rtype: Tuple[Dict[str, str], int]
+        """
         data = parser.parse_args()
         username = data['username']
         password = data['password']
@@ -52,6 +61,14 @@ class Session(Resource):
     @staticmethod
     @jwt_required
     def delete():
+        """
+        Delete a session. This is equivalent to a logout. This blocks the tokens
+        id so that future requests cannot use it to access any token-required
+        resource.
+
+        :returns: dictionary response and status code
+        :rtype: Tuple[Dict[str, str], int]
+        """
         jwt_id = get_raw_jwt()['jti']
         jwt_exp = datetime.fromtimestamp(get_raw_jwt()['exp'])
         JwtBlacklist(jwt_id, jwt_exp).save()
@@ -61,6 +78,13 @@ class Session(Resource):
     @staticmethod
     @jwt_refresh_token_required
     def put():
+        """
+        Use a refresh token to generate and return a new access token. The new
+        token is not fresh (some requests might require a fresh token).
+
+        :returns: dictionary response and status code
+        :rtype: Tuple[Dict[str, str], int]
+        """
         user_id = get_jwt_identity()
         new_token = create_access_token(identity=user_id, fresh=False)
         return {'accessToken': new_token}, 200

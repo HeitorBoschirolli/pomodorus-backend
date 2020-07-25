@@ -14,6 +14,13 @@ class Intervals(Resource):
     @staticmethod
     @jwt_required
     def get():
+        """
+        Get all intervals of a certain user. A valid access token (fresh or not)
+        is necessary.
+
+        :returns: dictionary response and status code
+        :rtype: Tuple[Dict[str, List[Dict[str, any]], int]]
+        """
         user_id = get_jwt_identity()
         intervals = IntervalModel.find_by_user_id(user_id)
         return {

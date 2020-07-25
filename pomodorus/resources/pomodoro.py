@@ -13,6 +13,13 @@ class Pomodoro(Resource):
     @staticmethod
     @jwt_required
     def post():
+        """
+        Create a new pomodoro. A rest session is also considered a pomodoro.
+        A valid access token (fresh or not) is necessary.
+
+        :returns: dictionary response and status code
+        :rtype: Tuple[Dict[str, str], int]
+        """
         # get user id from jwt
         user_id = get_jwt_identity()
 
