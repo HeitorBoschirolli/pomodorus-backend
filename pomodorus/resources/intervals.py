@@ -6,7 +6,6 @@ from flask_jwt_extended import jwt_required
 from flask_jwt_extended import get_jwt_identity
 
 from pomodorus.models.interval import Interval as IntervalModel
-from pomodorus.models.pomodoro import Pomodoro as PomodoroModel
 
 
 class Intervals(Resource):
